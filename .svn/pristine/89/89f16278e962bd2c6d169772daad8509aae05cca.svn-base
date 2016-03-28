@@ -1,0 +1,10 @@
+package kr.ac.kw.mining.dao.impl.mapper;
+
+import java.util.List;
+
+import kr.ac.kw.mining.domain.CategoryLinks;
+import kr.ac.kw.mining.domain.Page;
+
+public interface PageMapper {
+	public Page selectPage(int id);
+}

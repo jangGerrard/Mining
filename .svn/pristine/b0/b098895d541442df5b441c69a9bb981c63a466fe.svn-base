@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.NodePersonMapper">
+
+	<resultMap type="NodePerson" id="nodeperson-resultmap">
+		<result property="personPageId" column="person_page_id" />
+		<result property="personPageTitle" column="person_page_title"/>
+		<result property="year" column="year"/>
+		<result property="month" column="month"/>
+		<result property="date" column="date"/>
+	</resultMap>
+	
+	<select id="selectNodePersons" resultMap="nodeperson-resultmap">
+		select 
+			person_page_id,
+			person_page_title,
+			year,
+			month,
+			date
+		from node_person	
+	</select>
+</mapper>

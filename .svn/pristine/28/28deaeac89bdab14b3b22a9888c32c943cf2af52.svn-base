@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.PageLinksMapper">
+
+	<resultMap type="PageLink" id="pagelink-resultmap">
+		<result property="plFrom" column="pl_from"/>
+		<result property="plNamespace" column="pl_namespace"/>
+		<result property="plTitle" column="pl_title"/>
+		<result property="plFromNamespace" column="pl_from_namespace"/>
+	</resultMap>
+	
+	<select id="selectPageLinkById" parameterType="Integer" resultMap="pagelink-resultmap">
+		select 
+			pl_from,
+			pl_namespace,
+			pl_title,
+			pl_from_namespace	
+		from pagelinks
+		where pl_from = #{value}
+	</select>
+</mapper>

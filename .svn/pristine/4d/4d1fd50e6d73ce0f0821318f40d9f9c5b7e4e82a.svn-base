@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.YearPageCategoryMapper">
+	<insert id="insertYearPageCategory" parameterType="YearPageCategory">
+		insert into year_page_category(
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		)
+		values(
+			#{year:INTEGER},
+			#{month:INTEGER},
+			#{date:INTEGER},
+			#{ypcCatId:INTEGER},
+			#{ypcPageId:INTEGER},
+			#{ypcCatTitle:VARCHAR},
+			#{ypcPageTitle:VARCHAR},
+			#{ypcClType},
+			#{topCatId:INTEGER}
+		)
+	</insert>
+	
+	<insert id="insertYearPageCategoryDic" parameterType="YearPageCategoryDic">
+		insert into year_page_category_dic(
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id,
+			derived_category
+		)
+		values(
+			#{year:INTEGER},
+			#{month:INTEGER},
+			#{date:INTEGER},
+			#{ypcCatId:INTEGER},
+			#{ypcPageId:INTEGER},
+			#{ypcCatTitle:VARCHAR},
+			#{ypcPageTitle:VARCHAR},
+			#{ypcClType},
+			#{topCatId:INTEGER},
+			#{derivedCategory:VARCHAR}
+		)
+	</insert>
+	
+	<!-- update article set recommend=(recommend+1) where no=#{value}; -->
+	<update id="updateBCYear" parameterType="YearPageCategory">
+		update year_page_category 
+		set 
+			year = -( #{year:INTEGER} )
+		where
+			ypc_page_id = #{ypcPageId:INTEGER} 
+			and
+			year = #{year:INTEGER}
+	</update>
+	
+	<update id="updatePerson" parameterType="Integer">
+		update year_page_category_dic 
+			set person = '인물' 
+			where ypc_page_id = #{value};
+	</update>
+	
+	<resultMap type="YearPageCategory" id="yearpagecategory-resultmap">
+		<result property="year" column="year"/>
+		<result property="month" column="month" />
+		<result property="date" column="date"/>
+		<result property="ypcCatId" column="ypc_cat_id" />
+		<result property="ypcPageId" column="ypc_page_id" />
+		<result property="ypcCatTitle" column="ypc_cat_title"/>
+		<result property="ypcPageTitle" column="ypc_page_title"/>
+		<result property="ypcClType" column="ypc_cl_type"/>
+		<result property="topCatId" column="top_cat_id"/>
+		<result property="clTo" column="cl_to" />
+	</resultMap>
+	
+	<resultMap type="Word2Vec" id="word2vec-resultmap">
+		<result property="title" column="title"/>
+		<result property="numWords" column="num_words"/>
+		<result property="word1" column="word1"/>
+		<result property="word2" column="word2"/>
+		<result property="word3" column="word3"/>
+		<result property="word4" column="word4"/>
+		<result property="word5" column="word5"/>
+		<result property="word6" column="word6"/>
+		<result property="word7" column="word7"/>
+		<result property="word8" column="word8"/>
+		<result property="word9" column="word9"/>
+		<result property="word10" column="word10"/>
+	</resultMap>
+	
+
+	
+	<select id="selectYearPageCategory" parameterType="YearPageCategory" resultMap="yearpagecategory-resultmap">
+		select 
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		from year_page_category
+		where 
+			year = #{year:INTEGER} and
+			month = #{month:INTEGER} and
+			date = #{date:INTEGER} and
+			ypc_cat_id = #{ypcCatId:INTEGER} and
+			ypc_page_id = #{ypcPageId:INTEGER} and
+			ypc_cat_title = #{ypcCatTitle:VARCHAR} and
+			ypc_page_title = #{ypcPageTitle:VARCHAR} and
+			ypc_cl_type = #{ypcClType} and
+			top_cat_id = #{topCatId:INTEGER}
+	</select>
+	
+	<select id="selectPeopleByBirthYear" parameterType="String" resultMap = "yearpagecategory-resultmap">
+		select 
+			year,
+			ypc_page_id,
+			ypc_page_title
+		from year_page_category
+		where ypc_cat_title = #{value}
+		order by ypc_page_id asc
+		limit 20;
+	</select>
+	
+	<select id="selectBCYear" resultMap = "yearpagecategory-resultmap">
+		select 
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		from year_page_category 
+		where ypc_cat_title like '기원전%' 
+	</select>
+	
+	<select id="selectYearPageCategorys" resultMap="yearpagecategory-resultmap">
+		select 
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		from year_page_category 
+		order by year
+		limit 1000
+	</select>
+	
+	<select id="selectYearPageCategorysByPageId" parameterType="Integer" resultMap="yearpagecategory-resultmap">
+		select 
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		from year_page_category 
+		where ypc_page_id = #{value}
+	</select>
+	
+	
+	
+	<select id="selectYpcPageIds" resultType="java.lang.Integer">
+		select sub_table.ypc_page_id
+		from(select distinct ypc_page_id 
+				from year_page_category) as sub_table 
+		where sub_table.ypc_page_id > 1242056
+		order by sub_table.ypc_page_id
+		limit 20000;
+	</select>
+	
+	<select id="selectYpcDicBtnYear" parameterType="TimeLineQueryObject" resultMap="yearpagecategory-resultmap">
+		select 
+			year,
+			ypc_page_id,
+			ypc_page_title,
+			ypc_cat_title
+		from year_page_category_dic	
+		where year between (#{yearSelection} - 150)	and (#{yearSelection} + 150) and 1970 > year  and person = #{personString}
+		group by ypc_page_id,year
+		order by ypc_page_id
+		limit 1000;
+	</select>
+	
+		
+	<select id="selectYpcDic"  resultMap="yearpagecategory-resultmap">
+		select 
+			year,
+			ypc_page_id,
+			ypc_page_title
+		from year_page_category_dic	
+		order by year
+		limit 10000
+	</select>
+	
+
+			
+	<select id="selectYearPageCategoryDicGroupById"  resultMap="yearpagecategory-resultmap">
+		select
+			ypc_page_id,ypc_page_title
+		from year_page_category_dic
+		group by ypc_page_id
+		order by ypc_page_id
+	</select>
+	
+	<select id="selectFindIdByTitle" parameterType="String" resultMap="yearpagecategory-resultmap">
+		select 
+			ypc_page_id,
+			ypc_page_title
+		from year_page_category_dic	
+		where ypc_page_title = #{value}
+		group by ypc_page_id;
+	</select>
+	
+	<select id="selectYearPageCategoryDicByPageId" parameterType="Integer" resultType="String">
+		select 
+			ypc_page_title
+		from year_page_category_dic
+		where ypc_page_id = #{value}
+		group by ypc_page_title
+	</select>
+	
+	<select id="selectWord2VecByTitle" parameterType="String" resultMap="word2vec-resultmap">
+		select
+			title,
+			num_words,
+			word1,
+			word2,
+			word3,
+			word4,
+			word5,
+			word6,
+			word7,
+			word8,
+			word9,
+			word10
+		from word2vec
+		where title = #{value}
+	</select>
+	
+	<select id="selectRelatedPagesJoinCategorylinksById" parameterType="QueryObject" resultMap="yearpagecategory-resultmap" >
+		select ypc_page_id,ypc_page_title,year, sub_cate.cl_to
+			from year_page_category_dic as ypcd
+			inner join 
+			((select cl_from,sub_cat.cl_to
+				from categorylinks as cat
+				inner join
+					(select cl_to from categorylinks
+					where cl_from =#{id:INTEGER}) as sub_cat
+				on sub_cat.cl_to = cat.cl_to
+				)as sub_cate)
+			on sub_cate.cl_from = ypcd.ypc_page_id
+		where 1960 > year 
+		group by ypc_page_id
+		limit #{limit:INTEGER}
+	</select>
+	
+	<select id="selectRelatedPagesJoinCategorylinksByIds" resultMap="yearpagecategory-resultmap" >
+		select ypc_page_id,ypc_page_title,year, sub_cate.cl_to
+			from year_page_category_dic as ypcd
+			inner join 
+			((select cl_from,sub_cat.cl_to
+				from categorylinks as cat
+				inner join
+					(select cl_to from categorylinks
+					where 
+						cl_from in 
+						<foreach item="item" index="index" collection="list"
+								open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					) as sub_cat
+				on sub_cat.cl_to = cat.cl_to
+				)as sub_cate)
+			on sub_cate.cl_from = ypcd.ypc_page_id
+		where 1960 > year 
+		group by ypc_page_id
+	</select>
+	
+	<select id="selectBornAndDeadList" resultMap="yearpagecategory-resultmap" >
+		select ypc_page_id
+			from year_page_category_dic
+			where ypc_page_id > 730151 and (ypc_cat_title like '%태어남%' or ypc_cat_title like '%죽음%')
+			group by ypc_page_id
+			order by ypc_page_id
+			;
+	</select>
+	
+	<select id ="selectYpcCatTitles" resultType="String" >
+		select ypc_cat_title
+			from year_page_category_dic 
+			group by ypc_cat_title
+			limit 7000;
+	</select>
+	
+</mapper>

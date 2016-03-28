@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.CategoryLinksMapper">
+	<resultMap type="CategoryLinks" id="categorylinks-resultmap">
+		<id property="pageId" column="page_id"/>
+		<result property="pageTitle" column="page_title" />
+	</resultMap>
+	
+	<select id="selectCategoryLinksFromId" parameterType="Integer" resultMap = "categorylinks-resultmap">
+		select cl_from, cl_to, cl_sortkey, cl_timestamp, cl_sortkey_prefix, cl_collation, cl_type
+		from categorylinks
+		where cl_from=#{value}
+	</select>
+</mapper>

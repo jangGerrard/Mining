@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.YearPageCategoryMapper">
+	<insert id="insertYearPageCategory" parameterType="YearPageCategory">
+		insert into year_page_category(
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		)
+		values(
+			#{year:INTEGER},
+			#{month:INTEGER},
+			#{date:INTEGER},
+			#{ypcCatId:INTEGER},
+			#{ypcPageId:INTEGER},
+			#{ypcCatTitle:VARCHAR},
+			#{ypcPageTitle:VARCHAR},
+			#{ypcClType},
+			#{topCatId:INTEGER}
+		)
+	</insert>
+	
+	<!-- update article set recommend=(recommend+1) where no=#{value}; -->
+	<update id="updateBCYear" parameterType="YearPageCategory">
+		update year_page_category 
+		set 
+			year = -( #{year:INTEGER} )
+		where
+			ypc_page_id = #{ypcPageId:INTEGER} 
+			and
+			year = #{year:INTEGER}
+	</update>
+	
+	<resultMap type="YearPageCategory" id="yearpagecategory-resultmap">
+		<result property="year" column="year"/>
+		<result property="month" column="month" />
+		<result property="date" column="date"/>
+		<result property="ypcCatId" column="ypc_cat_id" />
+		<result property="ypcPageId" column="ypc_page_id" />
+		<result property="ypcCatTitle" column="ypc_cat_title"/>
+		<result property="ypcPageTitle" column="ypc_page_title"/>
+		<result property="ypcClType" column="ypc_cl_type"/>
+		<result property="topCatId" column="top_cat_id"/>
+	</resultMap>
+
+	
+	<select id="selectYearPageCategory" parameterType="YearPageCategory" resultMap="yearpagecategory-resultmap">
+		select 
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		from year_page_category
+		where 
+			year = #{year:INTEGER} and
+			month = #{month:INTEGER} and
+			date = #{date:INTEGER} and
+			ypc_cat_id = #{ypcCatId:INTEGER} and
+			ypc_page_id = #{ypcPageId:INTEGER} and
+			ypc_cat_title = #{ypcCatTitle:VARCHAR} and
+			ypc_page_title = #{ypcPageTitle:VARCHAR} and
+			ypc_cl_type = #{ypcClType} and
+			top_cat_id = #{topCatId:INTEGER}
+	</select>
+	
+	<select id="selectPeopleByBirthYear" parameterType="String" resultMap = "yearpagecategory-resultmap">
+		select 
+			year,
+			ypc_page_id,
+			ypc_page_title
+		from year_page_category
+		where ypc_cat_title = #{value}
+		order by ypc_page_id asc
+		limit 20;
+	</select>
+	
+	<select id="selectBCYear" resultMap = "yearpagecategory-resultmap">
+		select 
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type,
+			top_cat_id
+		from year_page_category 
+		where ypc_cat_title like '기원전%' 
+	</select>
+</mapper>

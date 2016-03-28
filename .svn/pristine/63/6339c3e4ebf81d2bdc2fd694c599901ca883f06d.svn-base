@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.PageMapper">
+	<resultMap type="Page" id="page-resultmap">
+		<id property="pageId" column="page_id"/>
+		<result property="pageTitle" column="page_title" />
+	</resultMap>
+	
+	<select id="selectPage" parameterType="Integer" resultMap="page-resultmap">
+		select page_id, page_title
+		from page
+		where page_id = #{value}
+	</select>
+</mapper>

@@ -1,0 +1,292 @@
+
+<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctx" value="${pageContext.request.contextPath }" />
+<%@ page session="false" %>
+<head>
+	<title>Home</title>
+<script src="${ctx}/timeline_source_v2.3.0/timeline_2.3.0/src/webapp/api/timeline-api.js" type="text/javascript"></script>
+<script>
+        /* var tl;
+        function onLoad() {
+            var eventSource = new Timeline.DefaultEventSource();
+            
+            var zones = [
+                {   start:    "Fri Nov 22 1963 00:00:00 GMT-0600",
+                    end:      "Mon Nov 25 1963 00:00:00 GMT-0600",
+                    magnify:  10,
+                    unit:     Timeline.DateTime.DAY
+                },
+                {   start:    "Fri Nov 22 1963 09:00:00 GMT-0600",
+                    end:      "Sun Nov 24 1963 00:00:00 GMT-0600",
+                    magnify:  5,
+                    unit:     Timeline.DateTime.HOUR
+                },
+                {   start:    "Fri Nov 22 1963 11:00:00 GMT-0600",
+                    end:      "Sat Nov 23 1963 00:00:00 GMT-0600",
+                    magnify:  5,
+                    unit:     Timeline.DateTime.MINUTE,
+                    multiple: 10
+                },
+                {   start:    "Fri Nov 22 1963 12:00:00 GMT-0600",
+                    end:      "Fri Nov 22 1963 14:00:00 GMT-0600",
+                    magnify:  3,
+                    unit:     Timeline.DateTime.MINUTE,
+                    multiple: 5
+                }
+            ];
+            var zones2 = [
+                {   start:    "Fri Nov 22 1963 00:00:00 GMT-0600",
+                    end:      "Mon Nov 25 1963 00:00:00 GMT-0600",
+                    magnify:  10,
+                    unit:     Timeline.DateTime.WEEK
+                },
+                {   start:    "Fri Nov 22 1963 09:00:00 GMT-0600",
+                    end:      "Sun Nov 24 1963 00:00:00 GMT-0600",
+                    magnify:  5,
+                    unit:     Timeline.DateTime.DAY
+                },
+                {   start:    "Fri Nov 22 1963 11:00:00 GMT-0600",
+                    end:      "Sat Nov 23 1963 00:00:00 GMT-0600",
+                    magnify:  5,
+                    unit:     Timeline.DateTime.MINUTE,
+                    multiple: 60
+                },
+                {   start:    "Fri Nov 22 1963 12:00:00 GMT-0600",
+                    end:      "Fri Nov 22 1963 14:00:00 GMT-0600",
+                    magnify:  3,
+                    unit:     Timeline.DateTime.MINUTE,
+                    multiple: 15
+                }
+            ];
+            
+			
+			
+            var theme = Timeline.ClassicTheme.create();
+			Timeline.ThemeName = 'dark-theme'
+			
+            theme.event.bubble.width = 250;
+            
+            var date = "Fri Nov 22 1963 13:00:00 GMT-0600"
+            var bandInfos = [
+                Timeline.createHotZoneBandInfo({
+                    width:          "80%", 
+                    intervalUnit:   Timeline.DateTime.WEEK, 
+                    intervalPixels: 200,
+                    zones:          zones,
+                    eventSource:    eventSource,
+                    date:           date,
+                    timeZone:       -6
+                  //  theme:          theme
+                }),
+                Timeline.createHotZoneBandInfo({
+                    width:          "20%", 
+                    intervalUnit:   Timeline.DateTime.MONTH, 
+                    intervalPixels: 200,
+                    zones:          zones2, 
+                    eventSource:    eventSource,
+                    date:           date, 
+                    timeZone:       -6,
+                    overview:       true
+                   // theme:          theme
+                })
+            ];
+            bandInfos[1].syncWith = 0;
+            bandInfos[1].highlight = true;
+            
+            for (var i = 0; i < bandInfos.length; i++) {
+                bandInfos[i].decorators = [
+                    new Timeline.SpanHighlightDecorator({
+                        startDate:  "Fri Nov 22 1963 12:30:00 GMT-0600",
+                        endDate:    "Fri Nov 22 1963 13:00:00 GMT-0600",
+                        color:      "#FFC080",
+                        opacity:    50,
+                        startLabel: "shot",
+                        endLabel:   "t.o.d.",
+                       // theme:      theme,
+						cssClass: 't-highlight1'
+                    }),
+                    new Timeline.PointHighlightDecorator({
+                        date:       "Fri Nov 22 1963 14:38:00 GMT-0600",
+                        color:      "#FFC080",
+                        opacity:    50,
+                        //theme:      theme,
+						cssClass: 'p-highlight1'
+                    }),
+                    new Timeline.PointHighlightDecorator({
+                        date:       "Sun Nov 24 1963 13:00:00 GMT-0600",
+                        color:      "#FFC080",
+                        opacity:    50
+                        //theme:      theme
+                    })
+                ];
+            }
+            
+            tl = Timeline.create(document.getElementById("tl"), bandInfos, Timeline.HORIZONTAL);
+            tl.loadXML("examples/jfk/jfk.xml", function(xml, url) { eventSource.loadXML(xml, url); });
+        }
+        
+        var resizeTimerID = null;
+        function onResize() {
+            if (resizeTimerID == null) {
+                resizeTimerID = window.setTimeout(function() {
+                    resizeTimerID = null;
+                    tl.layout();
+                }, 500);
+            }
+        }
+		
+		
+		function themeSwitch(){
+			var timeline = document.getElementById('tl');		
+			timeline.className = (timeline.className.indexOf('dark-theme') != -1) ? timeline.className.replace('dark-theme', '') : timeline.className += ' dark-theme';
+			
+		} */
+
+		
+		/* 		var simpleTl;		
+		function simpleOnLoad(){
+			var eventSource = new Timeline.DefaultEventSource();
+			var bandInfos = [
+			                 Timeline.createBandInfo({ //위에꺼 처음에 가는 곳.
+			                     width:          "70%", 
+			                     intervalUnit:   Timeline.DateTime.MONTH, 
+			                     intervalPixels: 20,
+			                     date : "Jun 28 2015 00:00:00 GMT+0900",
+			                     eventSource : eventSource
+			                 }),
+			                 Timeline.createBandInfo({ // 아래꺼 처음에 가는 곳
+			                	 overview:       true,
+			                     width:          "30%", 
+			                     intervalUnit:   Timeline.DateTime.YEAR, 
+			                     intervalPixels: 5,
+			                     date : "Jun 28 2015 00:00:00 GMT+0900",
+			                     eventSource : eventSource
+			                 })
+			               ];
+			bandInfos[1].syncWith = 0;
+			bandInfos[1].highlight = true;
+			simpleTl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+			Timeline.loadJSON("timeline_source_v2.3.0/timeline_2.3.0/data/example.json",function(json, url ){
+				eventSource.loadJSON(json,url);
+			});
+			               
+              var simpleResizeTimerID = null;
+              function onResize() {
+                  if (simpleResizeTimerID == null) {
+                	  simpleResizeTimerID = window.setTimeout(function() {
+                		  simpleResizeTimerID = null;
+                          simpleTl.layout();
+                      }, 500);
+                  }
+              }
+
+
+		} */
+		
+        var tl;
+		var centerYear = 1000;
+		var expandValue = 70;
+        function simpleOnLoad() {
+            var eventSource = new Timeline.DefaultEventSource(0); //getEventSource
+            
+            var theme = Timeline.ClassicTheme.create();
+            theme.event.bubble.width = 320;
+            theme.event.bubble.height = 220;
+            var d = Timeline.DateTime.parseGregorianDateTime(centerYear)
+            var bandInfos = [
+                Timeline.createBandInfo({
+                    width:          "100%", 
+                    intervalUnit:   Timeline.DateTime.DECADE,//CENTURY 
+                    intervalPixels: 200,
+                    eventSource:    eventSource,
+                    date:           d,
+                    theme:          theme
+                })
+            ];
+            
+            tl = Timeline.create(document.getElementById("tl"), bandInfos, Timeline.HORIZONTAL);
+            /* tl.loadJSON("timestamp.do?yearSelection="+centerYear+'&expandValue='+expandValue, function(json, url) {
+                eventSource.loadJSON(json, url);
+            }); */
+        }
+        var resizeTimerID = null;
+        function onResize() {
+            if (resizeTimerID == null) {
+                resizeTimerID = window.setTimeout(function() {
+                    resizeTimerID = null;
+                    tl.layout();
+                }, 500);
+            }
+        }
+
+        function onYearSelection(){
+       		var yearSelection = document.getElementById('yearSelection').value;
+       		centerYear = yearSelection;
+       		var expand = document.getElementsByName('expand');
+       		
+       		for(var i = 0 ; i < expand.length; i++){
+       			if(expand[i].checked == true){
+       				expandValue = expand[i].value;
+       			}
+       		}
+       		
+        	if(yearSelection == 2000){
+        		alert('최대 선택은 1900년 까지 입니다!');
+        		return false;
+        	}
+        	alert('on form submit' + yearSelection+' , expand : '+expandValue);
+        	simpleOnLoad();
+        }
+        
+        function checkDiv(){
+        	alert('checkDiv');
+        }
+        
+        
+    </script>
+    </head>
+<body onload="simpleOnLoad();" onresize="onResize();">
+<h1>
+	Hello world!  
+</h1>
+
+<P>  The time on the server is ${serverTime}. </P>
+<%-- <form action="${ctx }/timestamp.do" method="get" onsubmit="return onYearSelection();"> --%>
+<form action="" method="get" >
+	<select id = "yearSelection" onchange="onYearSelection()">
+		<option value = "000" >0 year</option>
+		<option value = "100" >100 year</option>
+		<option value = "200" >200 year</option>
+		<option value = "300" >300 year</option>
+		<option value = "400" >400 year</option>
+		<option value = "500" >500 year</option>
+		<option value = "600" >600 year</option>
+		<option value = "700" >700 year</option>
+		<option value = "800" >800 year</option>
+		<option value = "900" >900 year</option>
+		<option value = "1000"  selected="selected">1000 year</option>
+		<option value = "1100" >1100 year</option>
+		<option value = "1200" >1200 year</option>
+		<option value = "1300" >1300 year</option>
+		<option value = "1400" >1400 year</option>
+		<option value = "1500" >1500 year</option>
+		<option value = "1600" >1600 year</option>		
+		<option value = "1700" >1700 year</option>
+		<option value = "1800" >1800 year</option>
+		<option value = "1900" >1900 year</option>
+	</select>
+
+	<input  type ="radio" name ="expand" value="100" onchange="onYearSelection()"> 100%
+	<input  type ="radio" name ="expand" value="90" onchange="onYearSelection()"> 90%
+	<input  type ="radio" name ="expand" value="80"  onchange="onYearSelection()"> 80%
+	<input  type ="radio" name ="expand" value="70" checked="checked" onchange="onYearSelection()"> 70%
+	
+</form>
+
+<div id="tl" style="height:600px; border : 1px; solid #aaa" ondblclick="checkDiv()" onscroll="checkDiv()"></div>
+</body>
+</html>

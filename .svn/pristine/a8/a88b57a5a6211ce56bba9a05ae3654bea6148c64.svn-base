@@ -1,0 +1,12 @@
+package kr.ac.kw.mining.dao;
+
+import java.util.List;
+
+import kr.ac.kw.mining.domain.TimeStamp;
+
+public interface TimeStampDao {
+	public List<TimeStamp> selectTimeStamps();
+	
+	public List<TimeStamp> selectTimeStampsByBetweenCenterYear(int year);
+	
+}

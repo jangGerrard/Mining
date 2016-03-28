@@ -1,0 +1,7 @@
+package kr.ac.kw.mining.service;
+
+import kr.ac.kw.mining.domain.Page;
+
+public interface PageService {
+	public Page findPage(int id);
+}

@@ -1,0 +1,9 @@
+package kr.ac.kw.mining.dao;
+
+import kr.ac.kw.mining.domain.Page;
+
+public interface PageDao {
+	
+	public Page selectPage(int id);
+	
+}

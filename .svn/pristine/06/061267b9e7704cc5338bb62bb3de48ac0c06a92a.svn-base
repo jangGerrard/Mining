@@ -1,0 +1,28 @@
+package kr.ac.kw.mining.service.impl;
+
+import java.util.List;
+
+import kr.ac.kw.mining.dao.TimeStampDao;
+import kr.ac.kw.mining.domain.TimeStamp;
+import kr.ac.kw.mining.service.TimeStampService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TimeStampServiceImpl implements TimeStampService{
+
+	@Autowired
+	private TimeStampDao timeStampDao;
+	
+	@Override
+	public List<TimeStamp> findTimeStamps() {
+		return timeStampDao.selectTimeStamps();
+	}
+
+	@Override
+	public List<TimeStamp> selectTimeStampsByBetweenCenterYear(int year) {
+		return timeStampDao.selectTimeStampsByBetweenCenterYear(year);
+	}
+
+}

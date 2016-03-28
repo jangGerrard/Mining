@@ -1,0 +1,32 @@
+package kr.ac.kw;
+
+import java.util.List;
+
+import kr.ac.kw.mining.dao.YearPageCategoryDao;
+import kr.ac.kw.mining.domain.YearPageCategory;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class YearPageCateDaoTest {
+	static ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml") ;		
+	static YearPageCategory ypc = new YearPageCategory();
+	public static void main(String[] args){
+		YearPageCategoryDao ypcDao = ctx.getBean(YearPageCategoryDao.class);
+		List<YearPageCategory> yearPageCategorys = ypcDao.selectBCYear();
+		
+//		System.out.println("size : "+yearPageCategorys.size());
+//		다 찾음
+		
+		for(int i = 0 ; i < yearPageCategorys.size() ; i++){
+			ypc = yearPageCategorys.get(i);
+			System.out.println("ypc  year : "+ypc.getYear() + "ypc pageId : "+ypc.getYpcPageId());
+			ypcDao.updateBCYear(ypc);
+			
+			if(i % 100 == 0){
+				System.out.println(i +" / "+ yearPageCategorys.size());
+			}
+		}
+		System.out.println("find");
+	}
+}

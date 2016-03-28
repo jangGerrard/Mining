@@ -1,0 +1,13 @@
+package kr.ac.kw.mining.dao;
+
+import java.util.List;
+
+import kr.ac.kw.mining.domain.CategoryLinks;
+import kr.ac.kw.mining.domain.Page;
+
+public interface PageDao {
+	
+	public Page selectPage(int id);
+	
+	
+}

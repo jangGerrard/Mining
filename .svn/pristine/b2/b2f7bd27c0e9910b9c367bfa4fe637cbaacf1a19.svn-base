@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.YearPageCategoryMapper">
+	<insert id="insertYearPageCategory" parameterType="YearPageCategory">
+		insert into year_page_category(
+			year,
+			month,
+			date,
+			ypc_cat_id,
+			ypc_page_id,
+			ypc_cat_title,
+			ypc_page_title,
+			ypc_cl_type
+		)
+		values(
+			#{year:INTEGER},
+			#{month:INTEGER},
+			#{date:INTEGER},
+			#{ypcCatId:INTEGER},
+			#{ypcPageId:INTEGER},
+			#{ypcCatTitle:VARCHAR},
+			#{ypcPageTitle:VARCHAR},
+			#{ypcClType}
+		)
+	</insert>
+</mapper>

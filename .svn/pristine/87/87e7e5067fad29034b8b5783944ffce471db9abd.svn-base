@@ -1,0 +1,11 @@
+package kr.ac.kw.mining.service;
+
+import java.util.List;
+
+import kr.ac.kw.mining.domain.TimeStamp;
+
+public interface TimeStampService {
+	public List<TimeStamp> findTimeStamps();
+	
+	public List<TimeStamp> selectTimeStampsByBetweenCenterYear(int year);
+}

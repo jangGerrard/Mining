@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.CategorylinksMapper">
+	<resultMap type="CategoryLinks" id="categorylinks-resultmap">
+		<result property="clFrom" column="cl_from" />
+		<result property="clTo" column="cl_to" />
+		<result property="clSortKey" column="cl_sortkey" />
+		<result property="clTimeStamp" column = "cl_timestamp"/>
+		<result property="clSortKeyPrefix" column = "cl_sortkey_prefix"/>
+		<result property="clCollection" column="cl_collection"/>
+		<result property="clType" column = "cl_type" />
+	</resultMap>
+	
+	
+	
+	<!-- cltype setter가 없다고 하는데 setter있는데.,,,, 안쓰면 사용할 필요 없긴한데 나중에 필요하면 문제가 될듯. 일단은 빼놓음 -->
+	<select id="selectCategoryLinksFromId" parameterType="Integer" 
+			resultMap = "categorylinks-resultmap">
+		select cl_from, cl_to,  cl_timestamp, cl_sortkey_prefix, cl_collation, cl_type
+		from categorylinks
+		where cl_from=#{value}
+	</select>
+</mapper>

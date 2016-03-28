@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.TimeStampMapper">
+	<resultMap type="TimeStamp" id="timestamp-resultmap">
+		<result property="year" column="year"/>
+		<result property="month" column="month"/>
+		<result property="date" column="date"/>
+		<result property="content" column="content"/>
+		<result property="category" column="category"/>
+	</resultMap>
+
+	<select id="selectTimeStamps" resultMap="timestamp-resultmap">
+		select 
+			year,
+			month,
+			date,
+			content,
+			category
+		from timestamp	
+	</select>
+	
+	<select id="selectTimeStampsByBetweenCenterYear" parameterType="Integer" resultMap="timestamp-resultmap">
+		select 
+			year,
+			month,
+			date,
+			content,
+			category
+		from timestamp
+		where (year between (#{value}-100) and (#{value}+100) ) and category = 'event'
+	</select>
+
+</mapper>

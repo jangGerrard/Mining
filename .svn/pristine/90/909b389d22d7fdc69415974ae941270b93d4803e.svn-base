@@ -1,0 +1,23 @@
+package kr.ac.kw.mining.dao;
+
+import java.util.List;
+
+import kr.ac.kw.mining.domain.YearPageCategory;
+
+public interface YearPageCategoryDao {
+	
+	public void insertYearPageCategory(YearPageCategory yearPageCategory);
+	
+	public void updateBCYear(YearPageCategory yearPageCategory);
+	
+	public List<YearPageCategory> selectYearPageCategory(YearPageCategory yearPageCategory);
+	
+	public List<YearPageCategory> selectPeopleByBirthYear(String year );
+	
+	public List<YearPageCategory> selectBCYear ();
+	
+	public List<YearPageCategory> selectYearPageCategorys();
+	
+	public List<Integer> selectYpcPageIds();
+	
+}

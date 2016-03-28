@@ -1,0 +1,29 @@
+package kr.ac.kw;
+
+import java.util.List;
+
+import kr.ac.kw.mining.dao.PageDao;
+import kr.ac.kw.mining.domain.YearRelatedPageCategory;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class PageDaoTest {
+	public static void main(String[] args) {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml") ;		
+		PageDao pageDao = ctx.getBean(PageDao.class);
+
+//		Page page = pageDao.selectPage(5);
+//		System.out.println("page id : "+page.getPageId() + " page Title : "+ page.getPageTitle());
+//		String title;
+//		System.out.println("test 입니다.");
+		
+		List<YearRelatedPageCategory>pageCates = pageDao.selectYearRelatedPages();
+		
+		for (int i = 0; i < pageCates.size(); i++) {
+			System.out.println("page_title : "+pageCates.get(i).getPageTitle()+", cat_title : "+pageCates.get(i).getCatTitle()+", cl_type : "+pageCates.get(i).getClType());
+		}
+			
+	}
+	
+}

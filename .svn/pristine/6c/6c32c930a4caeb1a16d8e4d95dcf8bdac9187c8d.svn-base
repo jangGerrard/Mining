@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.ac.kw.mining.dao.impl.mapper.PageMapper">
+	<resultMap type="Page" id="page-resultmap">
+		<id property="pageId" column="page_id"/>
+		<result property="pageTitle" column="page_title" />
+	</resultMap>
+	
+	<resultMap type="YearRelatedPageCategory"  id="year-resultmap">
+		<id property="pageId" column="page_id"/>
+		<result property="catId" column="cat_id"/> 
+		<result property="pageTitle" column = "page_title"></result>
+		<result property="catTitle" column="cat_title"></result>
+		<result property="clType" column="cl_type"></result>
+	</resultMap>
+	
+	<select id="selectPage" parameterType="Integer" resultMap="page-resultmap">
+		select page_id, page_title
+		from page
+		where page_id = #{value}
+	</select>
+	
+	<select id="selectYearRelatedPages"  resultMap="year-resultmap">
+		select page_id , page_title, cat_title, cl_type, cat_id
+		from page as page inner join
+			(	select cl_from, cat_title,cl_type,cat_id
+				from categorylinks as cl inner join
+				(	select cat_title,cat_id
+					from category
+					where cat_title  regexp '[0-9]+년' and (cat_pages != 0 
+												or cat_subcats != 0
+												or cat_files != 0)) as category
+				on category.cat_title = cl.cl_to)as cate_cl 
+		on cate_cl.cl_from = page.page_id;
+	</select>
+	
+	<select id = "selectYearRelatedPagesByCatId" parameterType="Integer" resultMap="year-resultmap">
+		select page_id , page_title, cat_title, cl_type, cat_id
+		from page as page inner join
+			(	select cl_from, cat_title,cl_type, cat_id
+				from categorylinks as cl inner join
+				(	select cat_id, cat_title
+					from category
+					where cat_id = #{value} and (cat_pages != 0 
+												or cat_subcats != 0
+												or cat_files != 0)) as category
+				on category.cat_title = cl.cl_to)as cate_cl 
+		on cate_cl.cl_from = page.page_id;
+	</select> 
+</mapper>

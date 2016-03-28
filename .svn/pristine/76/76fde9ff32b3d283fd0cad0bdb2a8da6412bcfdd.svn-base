@@ -1,0 +1,179 @@
+package kr.ac.kw;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import kr.ac.kw.mining.dao.YearPageCategoryDao;
+import kr.ac.kw.mining.domain.YearPageCategory;
+import kr.ac.kw.mining.singleton.JsonWriterSingleton;
+
+import org.codehaus.jackson.JsonEncoding;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonGenerator;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+/*
+ * reference : http://www.mkyong.com/java/jackson-streaming-api-to-read-and-write-json/
+ * */
+public class MakeJsonString {
+	static ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml") ;		
+	static YearPageCategory ypc = new YearPageCategory();
+	static MakeJsonString makeJsonString;
+	static JsonFactory jfactory ;
+	static JsonGenerator jGenerator;
+	
+	
+	
+	static String yearBirth = "년_태어남";
+	static final int MAX_YEAR = 2000;
+	static JsonWriterSingleton jsonWriterSingleton ; 
+	public static final int WIDTH = 4;
+	public static final int HEIGHT = 4;
+	
+	public MakeJsonString() {
+		jfactory = new JsonFactory();
+		try {
+			jGenerator = jfactory.createJsonGenerator(new File("C:\\Users\\Jang\\Desktop\\test.json"),JsonEncoding.UTF8);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args){
+		int firstNodeId=0;
+//		makeJsonString = new MakeJsonString();
+		YearPageCategoryDao ypcDao = ctx.getBean(YearPageCategoryDao.class);
+		
+		jsonWriterSingleton = JsonWriterSingleton.getInstance();
+		jsonWriterSingleton.makeJsonStrBeforeWriteNode();
+
+//		for(int i = 0 ; i < MAX_YEAR ; i++){
+		for(int i = 1000 ; i < 1200 ; i++){	
+			List<YearPageCategory> yearpagecategorys = ypcDao.selectPeopleByBirthYear(i+yearBirth);
+			
+			if(yearpagecategorys.size() > 0){
+				System.out.println("size !0");
+				for(int j = 0 ; j < yearpagecategorys.size(); j++){
+					YearPageCategory ypc = yearpagecategorys.get(j);
+					System.out.println("year : "+ypc.getYear() + " pageId : "+ypc.getYpcPageId() + " pageTitle : "+ ypc.getYpcPageTitle());
+					jsonWriterSingleton.makeNodeJsonString(ypc.getYpcPageId() , ypc.getYpcPageTitle() , "인물" , ypc.getYear(), (ypc.getYear() - 1000)* WIDTH, j * HEIGHT );
+					
+					if(j == 0 && firstNodeId != 0){
+						
+					}
+					firstNodeId = j;
+				}
+			}
+			
+		}
+		
+		
+		jsonWriterSingleton.makeBeforeWriteEdges();
+		jsonWriterSingleton.makeEdgeJsonString(1111	,12314, 21341234);
+		jsonWriterSingleton.endRemainJsonString();
+//		makeJsonString.json();
+		System.out.println("finished");
+		
+	}
+	
+	public static void toFittedJson(){
+		
+	}
+	
+	public static void json() {
+		try {
+			jGenerator.writeStartObject();//맨처음
+			jGenerator.writeStringField("format_version", "1.0");
+			jGenerator.writeStringField("generated_by", "cytoscape-3.2.0");
+			jGenerator.writeStringField("target_cytoscapejs_version", "~2.1");
+			
+			jGenerator.writeFieldName("data");
+			jGenerator.writeStartObject();							//data
+			jGenerator.writeBooleanField("selected", true);
+			jGenerator.writeFieldName("__Annotations");
+				jGenerator.writeStartArray();
+				jGenerator.writeEndArray();
+			jGenerator.writeStringField("shared_name", "WineCheeseNetwork");
+//		    jGenerator.writeStringField("SUID", "52");
+			jGenerator.writeFieldName("SUID");
+			jGenerator.writeNumber(52);
+			jGenerator.writeStringField("name", "WineCheeseNetwork");
+			jGenerator.writeEndObject();							//data
+			
+			
+			jGenerator.writeFieldName("elements");				//elements
+			jGenerator.writeStartObject();
+			
+			jGenerator.writeFieldName("nodes");
+			jGenerator.writeStartArray();							//nodes
+			
+			/**/
+			jGenerator.writeStartObject();
+			
+			/*data start*/
+			jGenerator.writeFieldName("data");
+			jGenerator.writeStartObject();
+			jGenerator.writeFieldName("id");
+			jGenerator.writeNumber(10);
+			jGenerator.writeStringField("name", "jang's test");
+			jGenerator.writeEndObject();
+			/*data end*/
+			
+			/*position start*/
+			jGenerator.writeFieldName("position");
+			jGenerator.writeStartObject();
+			jGenerator.writeFieldName("x");
+			jGenerator.writeNumber(52);
+			jGenerator.writeFieldName("y");
+			jGenerator.writeNumber(52);
+			jGenerator.writeEndObject();
+			/*position end*/
+			
+			jGenerator.writeBooleanField("selected", false);
+			jGenerator.writeEndObject();
+			/**///여러개
+			
+			jGenerator.writeEndArray();							//nodes end
+			
+			jGenerator.writeFieldName("edges");
+			jGenerator.writeStartArray();							//edges
+			
+			/**/
+			jGenerator.writeStartObject();
+			
+			jGenerator.writeFieldName("data");
+			jGenerator.writeStartObject();
+			
+			jGenerator.writeStringField("id", "1762");
+			jGenerator.writeStringField("source", "430");
+			jGenerator.writeStringField("target", "428");
+			
+			jGenerator.writeEndObject();
+			jGenerator.writeEndObject();
+			/**/
+			
+			jGenerator.writeEndArray();							//edges ends
+			
+			jGenerator.writeEndObject();							//elements end
+//			jGenerator.writeNumberField("age",	29);
+//			
+//			jGenerator.writeFieldName("messages");
+//			jGenerator.writeStartArray();
+//			
+//			jGenerator.writeString("msg 1");
+//			jGenerator.writeString("msg 2");
+//			jGenerator.writeString("msg 3");
+//			
+//			jGenerator.writeEndArray();
+			
+			
+			jGenerator.writeEndObject();///맨처음껏
+			jGenerator.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

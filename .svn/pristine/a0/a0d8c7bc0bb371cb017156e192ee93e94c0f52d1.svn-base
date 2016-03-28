@@ -1,0 +1,7 @@
+package kr.ac.kw.mining.dao;
+
+import kr.ac.kw.mining.domain.YearPageCategory;
+
+public interface YearPageCategoryDao {
+	public void insertYearPageCategory(YearPageCategory yearPageCategory);
+}

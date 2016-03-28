@@ -1,0 +1,84 @@
+package kr.ac.kw;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import kr.ac.kw.mining.dao.YearPageCategoryDao;
+import kr.ac.kw.mining.domain.YearPageCategory;
+
+import org.codehaus.jackson.map.ser.MapSerializer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class YearPageCateDaoTest {
+	static ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml") ;		
+	static YearPageCategory ypc = new YearPageCategory();
+	public static void updateBCYear(String[] args){
+		YearPageCategoryDao ypcDao = ctx.getBean(YearPageCategoryDao.class);
+		List<YearPageCategory> yearPageCategorys = ypcDao.selectBCYear();
+		
+		System.out.println("size : "+yearPageCategorys.size());
+//		다 찾음
+		
+		for(int i = 0 ; i < yearPageCategorys.size() ; i++){
+			ypc = yearPageCategorys.get(i);
+			System.out.println("ypc  year : "+ypc.getYear() + "ypc pageId : "+ypc.getYpcPageId());
+			ypcDao.updateBCYear(ypc);
+			
+			if(i % 100 == 0){
+				System.out.println(i +" / "+ yearPageCategorys.size());
+			}
+		}
+		System.out.println("find");
+	}
+	static Map<String,String> maps = new HashMap<String,String>();
+	
+	public static void main(String[] args){
+		
+		YearPageCategoryDao ypcDao = ctx.getBean(YearPageCategoryDao.class);
+//		List<YearPageCategory> yearPageCategorys = ypcDao.selectYearPageCategorys();
+//		YearPageCategory yearPageCategory;
+//		System.out.println("size() : "+yearPageCategorys.size());
+//		
+//		//여기서 부터.
+//		
+//		for(int i = 0 ; i < yearPageCategorys.size() ; i++){
+//			yearPageCategory = yearPageCategorys.get(i);
+//			//이놈의 pageId를 이용해서 카테고리들 확인한다. 
+//		}
+		
+		List<Integer> ypcPageIds = ypcDao.selectYpcPageIds();//이거 테스트 안해봄
+		
+		for(int i = 0 ; i < ypcPageIds.size() ; i++){
+			Integer integer = ypcPageIds.get(i);
+			//여기서 그 것만큼의 카테고리 찾고,
+			
+			//아래 맵과 연관된거 찾아서
+			
+			//하나라도 있으면.
+			
+			//ypc 그 아이디로 연관된거 다 찾아서 리스트로 받아와서
+			
+			//그것을 새 테이블에 쓴다.
+		}
+		
+	}
+	public static void mapInit(){
+		maps.put("고조선", "고조선");
+		maps.put("부여", "부여");
+		maps.put("옥저", "옥저");
+		maps.put("동예", "동예");
+		maps.put("갸야", "가야");
+		maps.put("고구려", "고구려");
+		maps.put("신라", "신라");
+		maps.put("백제", "백제");
+		maps.put("발해", "발해");
+		maps.put("후백제", "후백제");
+		maps.put("태봉", "태봉");
+		maps.put("고려", "고려");
+		maps.put("조선", "조선");
+		maps.put("대한제국", "대한제국");
+		maps.put("대한민국", "대한민국");
+	}
+}

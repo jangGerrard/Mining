@@ -1,0 +1,30 @@
+package kr.ac.kw;
+
+import java.util.List;
+
+import kr.ac.kw.mining.dao.CategoryDao;
+import kr.ac.kw.mining.domain.Category;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class CategoryDaoTest {
+	public static void main(String[] args) {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml") ;		
+		CategoryDao cateDao= ctx.getBean(CategoryDao.class);
+		String temp = "년";
+		List<Category> cates = cateDao.selectPagesLikeTitle("년");
+		for (int i = 0; i < 100; i++) {
+			System.out.println("catId : "+cates.get(i).getCatId()+" ,title : "+cates.get(i).getCatTitle());
+		}
+		
+		Category category = new Category();
+		category.setCatId(8888888);
+		category.setCatTitle("년");
+		
+		
+//		cateDao.insertCategory(category);
+		
+		
+	}
+}

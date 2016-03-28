@@ -1,0 +1,75 @@
+package kr.ac.kw.mining.dao.impl;
+
+import java.util.List;
+
+import kr.ac.kw.mining.dao.YearPageCategoryDao;
+import kr.ac.kw.mining.dao.impl.mapper.YearPageCategoryMapper;
+import kr.ac.kw.mining.domain.YearPageCategory;
+import kr.ac.kw.mining.domain.YearPageCategoryDic;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class YearPageCategoryDaoImpl implements YearPageCategoryDao{
+
+	@Autowired
+	private YearPageCategoryMapper yearPageCategoryMapper;
+	
+	
+	@Override
+	public void insertYearPageCategory(
+			YearPageCategory yearPageCategory) {
+		yearPageCategoryMapper.insertYearPageCategory(yearPageCategory);
+	}
+	
+	public void insertYearPageCategoryDic(YearPageCategoryDic yearPageCategoryDic){
+		yearPageCategoryMapper.insertYearPageCategoryDic(yearPageCategoryDic);
+	}
+	
+	public void updateBCYear(YearPageCategory yearPageCategory){
+		yearPageCategoryMapper.updateBCYear(yearPageCategory);
+	}
+
+	public List<YearPageCategory> selectYearPageCategory(YearPageCategory yearPageCategory){
+		return yearPageCategoryMapper.selectYearPageCategory(yearPageCategory);
+	}
+
+	@Override
+	public List<YearPageCategory> selectPeopleByBirthYear(String year) {
+		return yearPageCategoryMapper.selectPeopleByBirthYear(year);
+	}
+	
+	public List<YearPageCategory> selectBCYear (){
+		return yearPageCategoryMapper.selectBCYear();
+	}
+
+	@Override
+	public List<YearPageCategory> selectYearPageCategorys() {
+		return yearPageCategoryMapper.selectYearPageCategorys();
+	}
+	
+	public List<Integer> selectYpcPageIds(){
+		return yearPageCategoryMapper.selectYpcPageIds();
+	}
+	
+	public List<YearPageCategory> selectYearPageCategorysByPageId(int pageId){
+		return yearPageCategoryMapper.selectYearPageCategorysByPageId(pageId);
+	}
+	
+	public List<YearPageCategory> selectYpcDicBtnYear(int year){
+		return yearPageCategoryMapper.selectYpcDicBtnYear(year);
+	}
+	
+	public List<YearPageCategory> selectYpcDic(){
+		return yearPageCategoryMapper.selectYpcDic();
+	}
+	
+	public List<YearPageCategory> selectYearPageCategoryDicGroupById(){
+		return yearPageCategoryMapper.selectYearPageCategoryDicGroupById();
+	}
+	
+	public int selectFindIdByTitle(String title){
+		return yearPageCategoryMapper.selectFindIdByTitle(title);
+	}
+}

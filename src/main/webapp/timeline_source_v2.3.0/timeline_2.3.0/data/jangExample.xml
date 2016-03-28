@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <event 
+    start="May 28 2015 09:00:00 GMT" 
+    end="Jun 15 2015 09:00:00 GMT" 
+    isDuration="true" 
+    title="Writing Timeline documentation" 
+    image="http://simile.mit.edu/images/csail-logo.gif">
+    A few days to write some documentation for 
+    <a href="http://simile.mit.edu/timeline/">Timeline</a>.
+  </event> 
+  <event 
+    start="Jun 16 2015 00:00:00 GMT" 
+    end="Jun 26 2015 00:00:00 GMT" 
+    title="Friend's wedding">
+    I'm not sure precisely when my friend's wedding is.
+  </event> 
+  <event 
+    start="Aug 02 2015 00:00:00 GMT" 
+    title="베이징으로 여행" 
+    link="http://travel.yahoo.com/">
+    Woohoo!
+  </event>
+  <event 
+    start="Aug 02 1900 00:00:00 GMT" 
+    title="과거로 여행" 
+    link="http://travel.yahoo.com/">
+    Woohoo!
+  </event> 
+</data>
+
+

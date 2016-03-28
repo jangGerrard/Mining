@@ -1,0 +1,21 @@
+package kr.ac.kw.mining.dao.impl;
+
+import kr.ac.kw.mining.dao.PageDao;
+import kr.ac.kw.mining.dao.impl.mapper.PageMapper;
+import kr.ac.kw.mining.domain.Page;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class PageDaoImpl implements PageDao{
+	
+	@Autowired
+	private PageMapper pageMapper;
+	
+	@Override
+	public Page selectPage(int id) {
+		return pageMapper.selectPage(id);
+	}
+
+}
